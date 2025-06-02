@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/cfjello/hierarkey-go" // Adjust import path as needed
+	"github.com/cfjello/hierarkey-go/pkg/hierarkey"
 )
 
 func main() {

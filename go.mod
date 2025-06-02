@@ -1,6 +1,7 @@
-module my-go-project
+module hierarkey-go
 
 go 1.18
 
 require ( 
+
 )
