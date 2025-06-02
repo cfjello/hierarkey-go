@@ -1,4 +1,4 @@
-module hierarkey-go
+module hierarkey
 
 go 1.18
 
