@@ -1,17 +1,17 @@
-package main
+package examples
 
 import (
 	"fmt"
+	"sort"
 
-	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey"
+	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey"
 )
 
-func main() {
-	hk := hierarkey.NewHierarKey(1, 3)
+func RunExampleA() {
 
 	// Create a map to store our values
 	m := make(map[string]string)
-
+	hk := hierarkey.NewHierarKey(1, 3, "")
 	m[hk.NextLeaf()] = "Animal"
 	m[hk.NextLevel()] = "Vertebrate"
 	m[hk.NextLevel()] = "Mammal"
@@ -33,8 +33,17 @@ func main() {
 	m[hk.NextLevel()] = "Pisum"
 	m[hk.NextLevel()] = "Pea"
 
-	// Iterate over the map and print key-value pairs
-	for key, value := range m {
-		fmt.Printf("%s: %s\n", key, value)
+	// Iterate over the map and print key-value pairs in sorted order
+	var keys []string
+	for key := range m {
+		keys = append(keys, key)
+	}
+
+	// Sort the keys
+	sort.Strings(keys)
+
+	// Print the map in sorted order
+	for _, key := range keys {
+		fmt.Printf("%s: %s\n", key, m[key])
 	}
 }

@@ -1,7 +1,3 @@
 module github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey
 
-go 1.18
-
-require ( 
-
-)
+go 1.22.1
