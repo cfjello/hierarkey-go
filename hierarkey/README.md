@@ -1,4 +1,4 @@
-# My Go Project
+# Auto generated GO README file
 
 This project is a simple Go application that demonstrates the structure and organization of a Go project. It includes an entry point, application lifecycle management, and utility functions.
 

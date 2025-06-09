@@ -11,7 +11,7 @@ func RunExampleA() {
 
 	// Create a map to store our values
 	m := make(map[string]string)
-	hk := hierarkey.NewHierarKey(1, 3, "")
+	hk := hierarkey.NewHierarKey(1, 2)
 	m[hk.NextLeaf()] = "Animal"
 	m[hk.NextLevel()] = "Vertebrate"
 	m[hk.NextLevel()] = "Mammal"
@@ -25,7 +25,7 @@ func RunExampleA() {
 	m[hk.NextLevel()] = "Orangutan"
 	m[hk.PrevLevel(1)] = "Homo"
 	m[hk.NextLevel()] = "Human"
-	m[hk.JumpToLevel("000")] = "Plant"
+	m[hk.JumpToLevel("01")] = "Plant"
 	m[hk.NextLevel()] = "Flowering Plant"
 	m[hk.NextLevel()] = "Magnoliopsida"
 	m[hk.NextLevel()] = "Fabales"

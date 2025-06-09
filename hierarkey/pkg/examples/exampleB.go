@@ -8,13 +8,13 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/yourusername/hierarkey-go/hierarkey"
+	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey"
 )
 
 func RunExampleB() {
-	hk := hierarkey.New(1, 2)
+	hk := hierarkey.NewHierarKey(1, 2)
 
-	resp, err := http.Get("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_popular_music_genres&section=15&prop=wikitext&format=json")
+	resp, err := http.Get("https://en.wikipedia.org/w/api.php?action=parse&page=List_of_music_genres_and_styles&section=13&prop=wikitext&format=json")
 	if err != nil {
 		fmt.Println("Error fetching data:", err)
 		return
@@ -27,14 +27,18 @@ func RunExampleB() {
 		return
 	}
 
-	var electronic map[string]interface{}
-	if err := json.Unmarshal(body, &electronic); err != nil {
+	var rockMap map[string]any
+	if err := json.Unmarshal(body, &rockMap); err != nil {
 		fmt.Println("Error parsing JSON:", err)
 		return
 	}
 
-	parseData := electronic["parse"].(map[string]interface{})
-	wikitextData := parseData["wikitext"].(map[string]interface{})
+	parseData, ok := rockMap["parse"].(map[string]any)
+	if !ok {
+		fmt.Println("Error: parse data not found or has unexpected format")
+		return
+	}
+	wikitextData := parseData["wikitext"].(map[string]any)
 	content := wikitextData["*"].(string)
 
 	entries := regexp.MustCompile(`\r?\n`).Split(content, -1)
@@ -49,7 +53,7 @@ func RunExampleB() {
 			prevLevel = 0
 		} else if strings.HasPrefix(item, "*") {
 			// Count the number of asterisks to determine level
-			level = len(strings.TrimLeft(item, "*")) - len(strings.TrimLeft(item, " *"))
+			level = len(item) - len(strings.TrimLeft(item, "*"))
 
 			if level > prevLevel {
 				hk.NextLevel()
@@ -66,7 +70,7 @@ func RunExampleB() {
 
 		if show {
 			entry := regexp.MustCompile(`[=\*\[\]]`).ReplaceAllString(item, "")
-			fmt.Printf("%s: %s\n", hk.CurrLeaf(), entry)
+			fmt.Printf("%s: %s\n", hk.GetCurrLeaf(), entry)
 		}
 	}
 }
