@@ -172,4 +172,4 @@ This example will give you the output:
 01.06.06.06: Slacker rock
 (...)
 ```
-Have a look at the example code in the `examples` directory and for more API information (for now) please check the test file: `mod_test.ts`
+Have a look at the example code in the `examples` directory and for more API information you can also check the test file: `test/Hierarkey_test.go`

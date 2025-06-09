@@ -42,7 +42,7 @@ func NewHierarKey(seed int, width int, padding ...string) *HierarKey {
 	}
 
 	h.currLeaf = h.pad(seed, h.width, h.padding)
-	h.seqMap[h.currLeaf] = seed - 1
+	// h.seqMap[h.currLeaf] = seed - 1
 
 	return h
 }
@@ -221,28 +221,32 @@ func (h *HierarKey) PadPath(path string) string {
 // JumpToLevel jumps to a level of the hierarKey structure
 func (h *HierarKey) JumpToLevel(path ...string) string {
 	var pathToUse string
-	if len(path) > 0 && path[0] != "" {
+	if len(path[0]) > 0 {
 		pathToUse = h.PadPath(path[0])
 	} else {
-		pathToUse = h.pad(0, h.width, h.padding)
+		pathToUse = h.pad(h.seed, h.width, h.padding)
 	}
 	h.Validate("jumpToLevel", pathToUse)
 	// Split the path and check if each parent exists in h.seqMap
 	parts := strings.Split(pathToUse, ".")
 	parent := ""
 	for i := 0; i < len(parts); i++ {
+		part := parts[i]
+		pathIdx, err := strconv.Atoi(part)
+		if err != nil {
+			panic(fmt.Sprintf("jumpToLevel: failed to convert %s to integer: %v", part, err))
+		}
+		if pathIdx < h.seed {
+			pathIdx = h.seed
+			part = h.pad(pathIdx, h.width, h.padding)
+		}
 		if i == 0 {
-			parent = parts[i]
+			parent = part
 		} else {
-			parent = fmt.Sprintf("%s.%s", parent, parts[i])
+			parent = fmt.Sprintf("%s.%s", parent, part)
 		}
 		if _, exists := h.seqMap[parent]; !exists {
 			// If a parent doesn't exist in the map, add it with initial value
-			part := parts[i]
-			pathIdx, err := strconv.Atoi(part)
-			if err != nil {
-				panic(fmt.Sprintf("jumpToLevel: failed to convert %s to integer: %v", part, err))
-			}
 			h.SetCurrLeaf(parent, pathIdx)
 		} else if i == len(parts)-1 {
 			// If it's the last part and it already exists, then set it as the current leaf

@@ -1,7 +1,10 @@
 package hierarkey_test
 
 import (
+	"fmt"
+	"math/rand"
 	"testing"
+	"time"
 
 	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey" // Adjust import path as needed
 )
@@ -143,23 +146,24 @@ func TestAddAdditionalRootLeafs(t *testing.T) {
 	hk1.JumpToLevel("")
 }
 
-/*
 func TestPathPunctuationError(t *testing.T) {
 	hk2 := hierarkey.NewHierarKey(1, 4)
-	res := hk2.JumpToLevel(".0007.0006")
-	if !regexp.MustCompile(`must NOT start or end with Dots`).MatchString(fmt.Sprintf("%v", res)) {
-		t.Errorf("Expected punctuation error, got %v", res)
+	hk2.JumpToLevel(".0007.0006.")
+	if hk2.GetCurrLeaf() != "0001.0007.0006.0001" {
+		t.Errorf("CurrLeaf = %q; want %q", hk2.GetCurrLeaf(), "0001.0007.0006.0001")
 	}
 }
 
+/*
 func TestDigitCharacterError(t *testing.T) {
 	hk2 := hierarkey.NewHierarKey(1, 4)
-	res := hk2.JumpToLevel("0007.0A06")
+	res:= hk2.JumpToLevel("0007.0A06")
 	if !regexp.MustCompile(`must contain only Digits and Dots`).MatchString(fmt.Sprintf("%v", res)) {
 		t.Errorf("Expected digit character error, got %v", res)
 	}
 }
-
+*/
+/*
 func TestTooLargeFieldError(t *testing.T) {
 	hk2 := hierarkey.NewHierarKey(1, 4)
 	res := hk2.JumpToLevel("00087.0006")
@@ -179,7 +183,7 @@ func TestOutOfBoundsIncrement(t *testing.T) {
 	}()
 	hk2.NextLeaf()
 }
-
+*/
 func randomIntFromInterval(r *rand.Rand, min, max int) int {
 	return r.Intn(max-min+1) + min
 }
@@ -201,4 +205,3 @@ func TestHierarKeyCanGenerate10000Entries(t *testing.T) {
 		hk5.JumpToLevel(path)
 	}
 }
-*/
