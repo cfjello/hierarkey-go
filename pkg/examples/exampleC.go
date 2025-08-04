@@ -3,7 +3,7 @@ package examples
 import (
 	"fmt"
 
-	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey"
+	"github.com/cfjello/hierarkey-go/pkg/hierarkey"
 )
 
 func RunExampleC() {

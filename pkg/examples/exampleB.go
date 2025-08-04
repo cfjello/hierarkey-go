@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey"
+	"github.com/cfjello/hierarkey-go/pkg/hierarkey"
 )
 
 func RunExampleB() {
