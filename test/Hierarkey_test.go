@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cfjello/hierarkey-go/hierarkey/pkg/hierarkey/pkg/hierarkey" // Adjust import path as needed
+	"github.com/cfjello/hierarkey-go/hierarkey" // Adjust import path as needed
 )
 
 func TestPadFunctions(t *testing.T) {
